@@ -1,5 +1,6 @@
 .jumbotron {
             text-align: center;
-            padding-top: 10%
+            padding-top: 10%;
+            background-image: url(../img/tclogo.png);
         }
    

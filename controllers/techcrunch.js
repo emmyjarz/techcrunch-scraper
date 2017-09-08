@@ -10,14 +10,47 @@ var cheerio = require("cheerio");
 mongoose.Promise = Promise;
 
 
-//homepage show all article that already in the database
+//Homepage 
 router.get("/", (req, res)=>{
     res.render("index");
-
 })
 
-//after scrape then redirect back to homepage
+//After scrape then redirect back to homepage
+router.get("/scrape", (req, res) => {
+    request("https://techcrunch.com/popular/", (err, res, html) => {
+        //load html into cheerio and save it to a variable
+        var $ = cheerio.load(html);
+        var result = {};
 
+        $("div.block-content").each((i, element) => {
+            result.title = $(element).find("h2").text();
+            result.link = $(element).find("h2").find("a").attr("href");
+            result.author = $(element).find(".byline").find("a").text();
+            result.intro = $(element).find(".excerpt").text().slice(0, 200);
+
+            var entry = new Article(result);
+            entry.save((err, data) => {
+                if (err) {
+                    console.log(err)
+                } else {
+                    console.log(data)
+                }
+            });
+        });
+    });
+    res.redirect("/articles");
+});
+
+//Show all articles after scraping from database.
+router.get("/articles", (req, res)=>{
+    Article.find({}, (err, data)=>{
+        if(err){
+            console.log(err)
+        } else{
+            res.render("index", {allArticles: data})
+        }
+    });
+})
 
 
 module.exports = router;
