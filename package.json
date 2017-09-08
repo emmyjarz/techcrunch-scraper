@@ -1,0 +1,31 @@
+{
+  "name": "techcrunch-scraper",
+  "version": "1.0.0",
+  "description": "a web app that scrape news and lets users view and leave comments on the latest news.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emmyjarz/techcrunch-scraper.git"
+  },
+  "author": "emmy jarzebinski",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emmyjarz/techcrunch-scraper/issues"
+  },
+  "homepage": "https://github.com/emmyjarz/techcrunch-scraper#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "cheerio": "^1.0.0-rc.2",
+    "express": "^4.15.4",
+    "express-handlebars": "^3.0.0",
+    "handlebars": "^4.0.10",
+    "method-override": "^2.3.9",
+    "mongoose": "^4.11.10",
+    "morgan": "^1.8.2",
+    "request": "^2.81.0"
+  }
+}
