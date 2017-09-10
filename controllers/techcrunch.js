@@ -34,7 +34,7 @@ router.get("/scrape", (req, res) => {
                 if (err) {
                     console.log(err)
                 } else {
-                    console.log(data)
+                    // console.log(data)
                 }
             });
         });
@@ -54,7 +54,7 @@ router.get("/articles", (req, res) => {
 });
 //Change article to save
 router.put("/articles/:id", (req, res) => {
-    console.log(req.params.id)
+    // console.log(req.params.id)
     Article.findOneAndUpdate({ "_id": req.params.id }, { "isSaved": true }, (err, data) => {
         if (err) {
             console.log(err)
@@ -86,12 +86,26 @@ router.delete("/saved/:id", (req, res) => {
 });
 
 //create new note or update an existing note
-router.post("/saved/:id", (req, res) => {
-    console.log("param", req.params.id)
-    console.log(req.body)
+router.put("/saved/:id", (req, res) => {
+    var newNote = new Note(req.body);
+    newNote.save((err, noteData) => {
+        if (err) {
+            console.log(err)
+        } else {
+            Article.findOneAndUpdate({ "_id": req.params.id }, { $push: { "note": noteData._id } }, { new: true },
+                (err, data) => {
+                    if (err) {
+                        console.log(err)
+                    } else {
+                        res.redirect("/saved")
+                    }
+                })
+        }
+    })
 });
+
 //grab each article and show note
-// router.get("/saved:id", (req,res)=>{
+// router.get("/saved:id", (req, res) => {
 //     res.send("haha")
 // })
 
