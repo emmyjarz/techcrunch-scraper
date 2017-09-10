@@ -23,12 +23,18 @@ var ArticleSchema = new Schema({
         required: true,
         trime: true
     },
+    isSaved: Boolean,
     note: {
         type: Schema.Types.ObjectId,
         ref:"Note"
     }
 
 });
+
+ArticleSchema.methods.saved = function(){
+    this.isSaved = false;
+    return this.isSaved;
+};
 
 var Article = mongoose.model("Article", ArticleSchema);
 module.exports = Article;

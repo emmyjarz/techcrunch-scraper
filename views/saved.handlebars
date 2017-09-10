@@ -23,61 +23,101 @@
     </div>
     <!-- /.container-fluid -->
 </nav>
-<div class="jumbotron">
-    <h1>Your Saved Articles</h1>
-    <h2>TechCrunch</h2>
-</div>
-
-<div class="panel panel-success">
-    <div class="panel-heading">
-        <h3 class="panel-title">Panel title</h3>
+<div class="container">
+    <div class="jumbotron">
+        <h1>Your Saved Articles</h1>
+        <h2>TechCrunch</h2>
     </div>
-    <div class="panel-body">
-        <h6>By: {{this.author}}</h6>
-        <p>Panel content</p>
-        <span><a href="{{this.link}}">... Read More</a></span>
+    {{#each savedArticles}}
+    <div class="panel panel-success">
+        <div class="panel-heading">
+            <h3 class="panel-title">{{this.title}}</h3>
+        </div>
+        <div class="panel-body">
+            <p>By: {{this.author}}</p>
+            <p>{{this.intro}}</p>
+            <span><a href="{{this.link}}">Read More</a></span>
 
-        <!-- <button type="" class="btn btn-info pull-right">Aritcle Notes</button> -->
-        <form action="">
-            <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#myModal{{@index}}">
+            <!-- <button type="" class="btn btn-info pull-right">Aritcle Notes</button> -->
+            <form action="">
+                <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#myModal{{@index}}">
   Aritcle Notes
 </button>
-            <!-- Modal -->
-            <div class="modal fade" id="myModal{{@index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title" id="myModalLabel">Notes For Article: {{this.title}}</h4>
-                        </div>
-
-                        <div class="modal-body">
-                            <div class="well">
-                                {{this.note}}
-                                <form action="/saved/........{{this.id}}?_method=DELETE" method="POST">
-                                    <button type="submit" class="btn btn-danger">X</button>
-
-                                </form>
+                <!-- Modal -->
+                <div class="modal fade" id="myModal{{@index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="myModalLabel"><strong>Notes For Article:</strong> {{this.title}}</h4>
                             </div>
-                            <form action="" method="">
-                                <textarea name="" id="" cols="30" rows="10">
-                                New Note
+
+                            <div class="modal-body">
+                                {{#each showNotes}}
+                                <div class="well">
+                                    {{this.note}}
+                                    <form action="/note/{{this.id}}?_method=DELETE" method="POST">
+                                        <button type="submit" class="btn btn-danger">X</button>
+                                    </form>
+                                </div>
+                                {{/each}}
+                                <form class="form-group" action="/saved/{{this.title}}" method="POST">
+                                    <div class="form-group">
+                                        <textarea class="form-control" name="addNote" id="" cols="30" rows="10">New Note
                             </textarea>
-                        </div>
-                        <div class="modal-footer">
-                            <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+                                    </div>
+                            </div>
+                            <div class="modal-footer">
+                                <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
 
-                            <button type="submit" class="btn btn-primary">Save Note</button>
+                                <button type="submit" class="btn btn-primary">Save Note</button>
 
+                            </div>
+                            </form>
                         </div>
-                        </form>
                     </div>
                 </div>
-            </div>
-        </form>
-        <form action="" method="">
-            <button type="submit" class="btn btn-danger pull-right">Delete From Saved</button>
-        </form>
+            </form>
+            <form action="/saved/{{this.id}}?_method=DELETE" method="POST">
+                <button type="submit" class="btn btn-danger pull-right button-delete">Delete From Saved</button>
+            </form>
 
+        </div>
     </div>
+    <br> {{/each}}
 </div>
+{{!--
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#admin-ul").show();
+        $("#public-ul").hide();
+
+        $(".button-delete").on("click", function (e) {
+            e.preventDefault();
+
+            swal({
+                title: "Are you sure?",
+                text: "You will not be able to recover this article!",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes, delete it!",
+                closeOnConfirm: false
+            },
+                function (isConfirm) {
+                    if (isConfirm) {
+                        swal("Deleted!", "Your article has been deleted.", "success");
+                        console.log("Frm: ", e.currentTarget.form);
+                        e.currentTarget.form.submit();
+                        return true;
+                    } else {
+                        swal("Cancelled", "Your article is safe :)", "error");
+                        return false;
+                    }
+                });
+        });
+    });
+    function deleteProduct() {
+    } --}}
+
+</script>
