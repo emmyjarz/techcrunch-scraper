@@ -35,7 +35,8 @@ app.set("view engine", "handlebars");
 
 // Database configuration with mongoose
 // mongoose.connect("mongodb://localhost/techcrunch");
-mongoose.openUri("mongodb://heroku_h5h2hqns:rksuvvvq4373mrgdufbqe6be0n@ds133084.mlab.com:33084/heroku_h5h2hqns");
+var MONGODB_URI = "mongodb://heroku_h5h2hqns:rksuvvvq4373mrgdufbqe6be0n@ds133084.mlab.com:33084/heroku_h5h2hqns";
+mongoose.connect(process.env.MONGODB_URI);
 var db = mongoose.connection;
 
 // Show any mongoose errors
