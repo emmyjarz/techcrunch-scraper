@@ -26,7 +26,6 @@
     "method-override": "^2.3.9",
     "mongoose": "^4.11.10",
     "morgan": "^1.8.2",
-    "request": "^2.81.0",
-    "sweetalert": "^2.0.3"
-  }
+    "request": "^2.81.0"
+     }
 }

@@ -36,11 +36,9 @@
         <div class="panel-body">
             <p>By: {{this.author}}</p>
             <p>{{this.intro}}</p>
-            <span><a href="{{this.link}}">Read More</a></span>
+            <span><a href="{{this.link}}">Read More</a></span> {{!--
+            <form action="" method=""> --}}
 
-    
-            {{!-- <form action="" method=""> --}}
-                
                 <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#myModal{{@index}}">
   Aritcle Notes
 </button>
@@ -57,7 +55,6 @@
                                 {{#each this.notes}}
                                 <div class="well">
                                     {{this.body}}
-                                    {{this.id}}
                                     <form action="/saved/note/{{this.id}}?_method=DELETE" method="POST">
                                         <button type="submit" class="btn btn-danger pull-right">X</button>
                                     </form>
@@ -75,7 +72,7 @@
                     </div>
                 </div>
                 {{!-- </form> --}}
-            <form action="/saved/{{this.id}}?_method=DELETE " method="POST ">
+            <form action="/saved/article/{{this.id}}?_method=DELETE" method="POST">
                 <button type="submit " class="btn btn-danger pull-right button-delete ">Delete From Saved</button>
             </form>
 

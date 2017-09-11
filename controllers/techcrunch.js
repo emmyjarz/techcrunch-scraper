@@ -75,7 +75,8 @@ router.get("/saved", (req, res) => {
     })
 });
 //Delete saved article
-router.delete("/saved/:id", (req, res) => {
+router.delete("/saved/article/:id", (req, res) => {
+    console.log("79")
     Article.remove({ "_id": req.params.id }, (err, data) => {
         if (err) {
             console.log(err);
