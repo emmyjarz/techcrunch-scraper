@@ -66,13 +66,21 @@ router.put("/articles/:id", (req, res) => {
 
 //Show all saved articles(isSaved = true)
 router.get("/saved", (req, res) => {
-    Article.find({ isSaved: true }, (err, data) => {
+    Article.find({ "isSaved": true }).populate("notes").exec((err, data) => {
         if (err) {
             console.log(err)
         } else {
-            res.render("saved", { savedArticles: data })
+            res.render("saved", { savedArticles: data });
         }
-    });
+    })
+    // Article.find({ isSaved: true }, (err, data) => {
+    //     if (err) {
+    //         console.log(err)
+    //     } else {
+    //         console.log(data)
+    //         res.render("saved", { savedArticles: data })
+    //     }
+    // });
 });
 //Delete saved article
 router.delete("/saved/:id", (req, res) => {
@@ -86,13 +94,13 @@ router.delete("/saved/:id", (req, res) => {
 });
 
 //create new note or update an existing note
-router.put("/saved/:id", (req, res) => {
+router.put("/saved/note/:id", (req, res) => {
     var newNote = new Note(req.body);
     newNote.save((err, noteData) => {
         if (err) {
             console.log(err)
         } else {
-            Article.findOneAndUpdate({ "_id": req.params.id }, { $push: { "note": noteData._id } }, { new: true },
+            Article.findOneAndUpdate({ "_id": req.params.id }, { $push: { "notes": noteData._id } }, { new: true },
                 (err, data) => {
                     if (err) {
                         console.log(err)
@@ -105,8 +113,19 @@ router.put("/saved/:id", (req, res) => {
 });
 
 //grab each article and show note
-// router.get("/saved:id", (req, res) => {
-//     res.send("haha")
-// })
+// router.get("/saved/note/:id", (req, res) => {
+//     console.log("l117", req.params.id)
+//     Article.findOne({ "_id": req.params.id })
+//         .populate("notes")
+//         .exec((err, data) => {
+//             if (err) {
+//                 console.log(err)
+//             } else {
+//                 console.log("l124", data)
+//                 // res.json(data)
+//                 res.render("saved", { eachArticleNote: data });
+//             }
+//         });
+// });
 
 module.exports = router;
