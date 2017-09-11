@@ -38,8 +38,9 @@
             <p>{{this.intro}}</p>
             <span><a href="{{this.link}}">Read More</a></span>
 
-            <!-- <button type="" class="btn btn-info pull-right">Aritcle Notes</button> -->
-            <form action="" method="">
+    
+            {{!-- <form action="" method=""> --}}
+                
                 <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#myModal{{@index}}">
   Aritcle Notes
 </button>
@@ -56,7 +57,8 @@
                                 {{#each this.notes}}
                                 <div class="well">
                                     {{this.body}}
-                                    <form action="/note/{{this.id}}?_method=DELETE" method="POST">
+                                    {{this.id}}
+                                    <form action="/saved/note/{{this.id}}?_method=DELETE" method="POST">
                                         <button type="submit" class="btn btn-danger pull-right">X</button>
                                     </form>
                                 </div>

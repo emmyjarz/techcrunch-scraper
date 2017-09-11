@@ -73,14 +73,6 @@ router.get("/saved", (req, res) => {
             res.render("saved", { savedArticles: data });
         }
     })
-    // Article.find({ isSaved: true }, (err, data) => {
-    //     if (err) {
-    //         console.log(err)
-    //     } else {
-    //         console.log(data)
-    //         res.render("saved", { savedArticles: data })
-    //     }
-    // });
 });
 //Delete saved article
 router.delete("/saved/:id", (req, res) => {
@@ -112,20 +104,15 @@ router.put("/saved/note/:id", (req, res) => {
     })
 });
 
-//grab each article and show note
-// router.get("/saved/note/:id", (req, res) => {
-//     console.log("l117", req.params.id)
-//     Article.findOne({ "_id": req.params.id })
-//         .populate("notes")
-//         .exec((err, data) => {
-//             if (err) {
-//                 console.log(err)
-//             } else {
-//                 console.log("l124", data)
-//                 // res.json(data)
-//                 res.render("saved", { eachArticleNote: data });
-//             }
-//         });
-// });
+//delete note
+router.delete("/saved/note/:id", (req, res) => {
+    Note.remove({ "_id": req.params.id }, (err, data) => {
+        if (err) {
+            console.log(err);
+        } else {
+            res.redirect("/saved")
+        }
+    });
+})
 
 module.exports = router;
