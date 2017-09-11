@@ -1,6 +1,15 @@
 .jumbotron {
             text-align: center;
             padding-top: 10%;
-            background-image: url(../img/tclogo.png);
-        }
-   
+            background-image: url(../img/logo.jpg);
+            background-repeat: no-repeat;
+            background-color:#25A003;
+           }
+h1, h2{
+    color:white !important;
+    text-align: right;
+   }
+.readMore{
+    text-decoration: none !important;
+    color: grey;
+}
