@@ -11,7 +11,6 @@
       </button>
             <a class="navbar-brand" href="/articles">Mongo Scraper</a>
         </div>
-
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
@@ -32,54 +31,46 @@
     <div class="panel panel-success">
         <div class="panel-heading">
             <h3 class="panel-title">{{this.title}}</h3>
-            
         </div>
         <div class="panel-body">
-        <p><strong>By:</strong> {{this.author}}</p>
+            <p><strong>By:</strong> {{this.author}}</p>
             <p>{{this.intro}}</p>
-            <span><a href="{{this.link}}" class="readMore">Read More</a></span> 
+            <span><a href="{{this.link}}" class="readMore">Read More</a></span>
             <form action="/saved/article/{{this.id}}?_method=DELETE" method="POST">
                 <button type="submit " class="btn btn-danger pull-right button-delete ">Delete From Saved</button>
             </form>
-
-                <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#myModal{{@index}}">
+            <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#myModal{{@index}}">
   Article Notes
 </button>
-                <!-- Modal -->
-                <div class="modal fade" id="myModal{{@index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                <h4 class="modal-title" id="myModalLabel"><strong>Notes For Article:</strong> {{this.title}}</h4>
-                            </div>
-
-                            <div class="modal-body">
-                                {{#each this.notes}}
-                                    <form action="/saved/note/{{this.id}}?_method=DELETE" method="POST">
+            <!-- Modal -->
+            <div class="modal fade" id="myModal{{@index}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel"><strong>Notes For Article:</strong> {{this.title}}</h4>
+                        </div>
+                        <div class="modal-body">
+                            {{#each this.notes}}
+                            <form action="/saved/note/{{this.id}}?_method=DELETE" method="POST">
                                 <div class="well">
                                     {{this.body}}
-                                        <button type="submit" class="btn btn-danger pull-right">X</button>
+                                    <button type="submit" class="btn btn-danger pull-right">X</button>
                                 </div>
-                                    </form>
-                                {{/each}}
-
-                                <form class="form-group" action="/saved/note/{{this.id}}?_method=PUT" method="POST">
-                                    <div class="form-group">
-                                        <textarea class="form-control" name="body" id="" cols="30" rows="10">New Note</textarea>
-                                    </div>
-                                    <button type="submit " class="btn btn-success">Save Note</button>
-                                </form>
-                            </div>
+                            </form>
+                            {{/each}}
+                            <form class="form-group" action="/saved/note/{{this.id}}?_method=PUT" method="POST">
+                                <div class="form-group">
+                                    <textarea class="form-control" name="body" id="" cols="30" rows="10">New Note</textarea>
+                                </div>
+                                <button type="submit " class="btn btn-success">Save Note</button>
+                            </form>
                         </div>
                     </div>
                 </div>
-                {{!-- </form> --}}
-         
-
+            </div>
+            {{!-- </form> --}}
         </div>
     </div>
     <br> {{/each}}
 </div>
-
-</script>
